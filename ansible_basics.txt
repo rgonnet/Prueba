@@ -1,0 +1,13 @@
+3) Responder las siguientes preguntas
+	1- Ansible es un herramienta para gestionar y automatizar servidores, o la generacion de tareas repetitivas, es agentless porque no requiere de otro programa que lo ejecute sino que con un archivos con instrucciones las realiza, eso si debe tener inventarios, modulos, plugins para despues instalarlos en los servidores al que necesite instarles, lo hace a travez de claves SSH
+	
+	2-El comando Ad-hoc lo realiza el usuario a travez de linea de comandos, se utiliza por ejemplo si necesitas saber algun dato especifico de tu estructura de ansible, x ejemplo ping, si estan activos, o si tenes algun erros de sintaxis, tambien se puede dar el caso de implementarlo en un script.
+el playbook por ejemplo son un varios modulos en el cual podes hacer configuraciones, instalaciones de paquetes y sirve mas para dejar un servidor de cero, pronto para funcionar con los modulos que se eligieron en funcion de la tarea que vaya a cumplir, que SO va a trabajar ,updates, confiracion de webserver, entre otras, está orientado a la automatizacion
+
+	3-idempontencia significa que se puede ejecutar varias veces el playbook y tener siempre el mismo efecto, no genera mal funcionamiento, de todas maneras ansible hace un chequeo primero antes de instalar o configurar algo, si ya cheqeueo que no necesita instalar o modificar, directamente no toma accion.
+	
+	4-los Handlers realizan tareas secundarias, pero se ejecutan si se le da la orden como reiniciar un equipo, o el servicio que se haya instalado, el handlers es otra funcion para optimizar aun mas Ansible, donde realice acciones segun sea necesarias, la optimizacion seria evitar acciones innecsarioas del sistema.
+
+	5- La verificacion de errores de sintaxis nos ayudan  a mejorar el playbook y de que no de errores, a veces cuando el sistema lee el archivo no suele comprender los comandos o modulos que se ingresan, hacer un chequeo es siempre una tarea a tomar en cuenta , el comando es "ansible-playbook --syntax-check, hay que tener en cuenta que el playbook maneja varios archivos a al vez y deben estar en locaciones donde este ad-hoc logre ubicarlas o especificar bien las rutas de los archivos.
+
+ 

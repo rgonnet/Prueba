@@ -1,0 +1,2 @@
+ubuntu1 | CHANGED | rc=0 >>
+ 02:17:54 up  2:52,  2 users,  load average: 0.01, 0.01, 0.00

@@ -1,0 +1,49 @@
+﻿---
+- name: Configurar servidor web
+  hosts: centos1
+  become: yes
+    
+  tasks:
+
+  - name: Instalar Apache
+    ansible.builtin.yum:
+      name:  httpd
+      state: present
+
+  - name: Servicio apache (httpd) iniciado
+    ansible.builtin.systemd_service:
+      name: httpd
+      state: started
+      enabled: true
+       
+  - name: Configurar VirtualHost
+    ansible.builtin.template:
+      src: ../files/vhost.conf.j2
+      dest: /etc/httpd/conf.d/ejemplo.conf
+      owner: apache
+      group: apache
+      mode: '0644'
+    notify: Reiniciar Apache
+
+  - name: Agregar Servicios al Firewall
+    ansible.posix.firewalld:
+      service: "{{ item }}"
+      state: enabled
+      permanent: true
+      immediate: true 
+    loop: 
+      - http
+      - https
+
+  - name: Desplegar pagina web
+    ansible.builtin.template:
+      src: ../templates/index.html.j2
+      dest: /var/www/html/index.html
+
+  handlers:
+  - name: Reiniciar Apache
+    ansible.builtin.service:
+      name: httpd
+      state: restarted
+      enabled: true
+

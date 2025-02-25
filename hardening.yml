@@ -1,0 +1,31 @@
+ -name: Mejorar la seguridad de Ubuntu
+ hosts: ubuntu
+ become: yes
+ 
+   tasks:
+    -name: habilitar Serv. Firewall y permitir solo SSH
+    ufw:
+      state: enabled
+      policy: deny
+      rule: allow
+      port: 22
+      proto: tcp
+
+    -name: Garantizar clave publica  del user SysAdmin
+    autorized_key:
+      user: sysadmin
+      strate: present
+      key: "{{ lookup('file', 'files/sysadmin_key.pub') }}"
+
+    -name: Deshabilitar autenticacion por contraseña en SSH
+    lineinfile:
+      path: etc/ssh/sshd_config
+      regexp: '^#?PasswordAuthentication'
+      line: 'PasswordAuthentication no'
+      notify: Reiniciar SSh
+
+      handlers:
+        -name: Reiniciar SSH
+        service:
+          name: sshd
+          state: restarted 
